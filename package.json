@@ -1,0 +1,73 @@
+{
+  "name": "react-proptable",
+  "version": "0.1.0",
+  "description": "React component PropTypes documentation.",
+  "author": {
+    "name": "Pascal Duez",
+    "url": "https://github.com/pascalduez"
+  },
+  "homepage": "https://github.com/pascalduez/react-proptable",
+  "bugs": "https://github.com/pascalduez/react-proptable/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pascalduez/react-proptable.git"
+  },
+  "license": "Unlicense",
+  "files": [
+    "dist",
+    "index.js",
+    "README.md",
+    "UNLICENSE"
+  ],
+  "scripts": {
+    "lint": "eslint ./src/**/*.js",
+    "typecheck": "flow check",
+    "validate": "npm run typecheck && npm run lint",
+    "test": "jest",
+    "watch:test": "npm test -- --watch",
+    "coverage": "npm test -- --coverage",
+    "clean": "rm -rf ./dist",
+    "build:js": "babel ./src -d ./dist --ignore '*.test.js,*.type.js'",
+    "build": "npm run clean && npm run build:js",
+    "prepublish": "npm run build",
+    "dev": "babel-node ./develop"
+  },
+  "jest": {
+    "testPathDirs": [
+      "src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!src/**/*.type.js"
+    ],
+    "setupTestFrameworkScriptFile": "node_modules/jest-enzyme/lib/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-flow-react-proptypes": "^0.14.0",
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-plugin-transform-object-entries": "^1.0.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "enzyme": "^2.4.1",
+    "enzyme-to-json": "^1.1.4",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-flowtype": "^2.20.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "flow-bin": "^0.33.0",
+    "jest-cli": "^16.0.1",
+    "jest-enzyme": "^2.0.0",
+    "react": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2"
+  },
+  "peerDependencies": {
+    "react": "^15.3.2"
+  }
+}
