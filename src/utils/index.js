@@ -25,7 +25,7 @@ export default function extractPropTypes(component) {
   }
 
   for (const [name, value] of Object.entries(component.defaultProps)) {
-    if (value === undefined) {
+    if (typeof value === 'undefined') {
       continue;
     }
 
