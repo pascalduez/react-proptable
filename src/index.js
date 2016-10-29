@@ -1,1 +1,1 @@
-export { default } from './components/PropTable';
+export { PropTable as default } from './components';

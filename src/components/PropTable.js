@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Table from '../Table';
-import extractPropTypes from '../../utils';
+import Table from './Table';
+import extractPropTypes from '../utils';
 
 
 const PropTable = ({ title, component, className, ...extraProps }) => {
