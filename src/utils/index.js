@@ -1,7 +1,28 @@
 import React from 'react';
 
 
-export default function extractPropTypes(component) {
+export default function getPropTypes(component) {
+  if (component.__docgenInfo) {
+    return fromDocgen(component);
+  }
+
+  return fromReact(component);
+}
+
+
+function fromDocgen(component) {
+  const props = {};
+
+  for (const [key, val] of Object.entries(component.__docgenInfo.props)) {
+    props[key] = val;
+    props[key].name = key;
+  }
+
+  return props;
+}
+
+
+function fromReact(component) {
   const reactPropTypes = new Map();
   const componentPropTypes = {};
 
@@ -15,7 +36,7 @@ export default function extractPropTypes(component) {
   }
 
   for (const [name, prop] of Object.entries(component.propTypes)) {
-    const type = reactPropTypes.get(prop) || 'custom';
+    const type = { name: reactPropTypes.get(prop) || 'custom' };
     const required = typeof prop.isRequired === 'function';
     componentPropTypes[name] = { name, type, required };
   }
@@ -33,7 +54,7 @@ export default function extractPropTypes(component) {
       componentPropTypes[name] = { name };
     }
 
-    componentPropTypes[name].defaultValue = value;
+    componentPropTypes[name].defaultValue = { value };
   }
 
   return componentPropTypes;

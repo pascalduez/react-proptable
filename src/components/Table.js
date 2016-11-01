@@ -9,15 +9,17 @@ const Table = ({ properties, className }) => (
         <th>Type</th>
         <th>Required</th>
         <th>Default</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
       {properties.map(prop => (
         <tr key={prop.name}>
           <td>{prop.name}</td>
-          <td>{prop.type}</td>
+          <td>{prop.type.name}</td>
           <td>{String(prop.required)}</td>
-          <td>{prop.defaultValue || '-'}</td>
+          <td>{prop.defaultValue ? prop.defaultValue.value : '-'}</td>
+          <td>{prop.description || '-'}</td>
         </tr>
       ))}
     </tbody>
@@ -26,9 +28,14 @@ const Table = ({ properties, className }) => (
 
 const propertiesShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   required: PropTypes.bool,
-  defaultValue: PropTypes.node,
+  defaultValue: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+  }),
+  description: PropTypes.string,
 });
 
 Table.propTypes = {

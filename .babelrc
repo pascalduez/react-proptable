@@ -7,5 +7,12 @@
   "plugins": [
     "transform-flow-strip-types",
     "transform-object-entries"
-  ]
+  ],
+  "env": {
+    "DOCS": {
+      "plugins": [
+        "react-docgen"
+      ]
+    }
+  }
 }

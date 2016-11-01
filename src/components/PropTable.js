@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import Table from './Table';
-import extractPropTypes from '../utils';
+import getPropTypes from '../utils';
 
 
 const PropTable = ({ title, component, className, ...extraProps }) => {
   const heading = title || `${component.displayName || ''} PropTypes`;
-  const properties = Object.values(extractPropTypes(component));
+  const properties = Object.values(getPropTypes(component));
 
   return (
     <section className={className} {...extraProps}>
