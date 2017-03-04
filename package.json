@@ -20,20 +20,21 @@
     "UNLICENSE"
   ],
   "scripts": {
-    "lint": "eslint ./src/**/*.js",
-    "typecheck": "flow check",
-    "validate": "npm run typecheck && npm run lint",
+    "lint": "eslint ./src",
+    "typecheck": "flow check ./src",
+    "typecheck:coverage": "flow-coverage-report -t test -t html ./src/**/*.js",
+    "validate": "npm-run-all lint typecheck",
     "test": "jest",
-    "watch:test": "npm test -- --watch",
     "coverage": "npm test -- --coverage",
     "clean": "rm -rf ./dist",
     "build:js": "babel ./src -d ./dist --ignore '*.test.js,*.type.js'",
-    "build": "npm run clean && npm run build:js",
+    "build:flow": "flow-copy-source -v -i '**/*.spec.js' -i '**/*.story.js' ./src ./dist",
+    "build": "npm-run-all clean build:*",
     "prepublish": "npm run build",
     "dev": "BABEL_ENV=DOCS babel-node ./develop"
   },
   "jest": {
-    "testPathDirs": [
+    "roots": [
       "src"
     ],
     "collectCoverageFrom": [
@@ -41,34 +42,42 @@
       "!src/**/index.js",
       "!src/**/*.type.js"
     ],
-    "setupTestFrameworkScriptFile": "node_modules/jest-enzyme/lib/index.js"
+    "setupTestFrameworkScriptFile": "./scripts/setupTests.js",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "dependencies": {
-    "pretty-format": "^4.3.1"
+    "pretty-format": "^19.0.0",
+    "react-docgen": "^2.13.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
-    "babel-plugin-flow-react-proptypes": "^0.18.2",
-    "babel-plugin-react-docgen": "^1.4.1",
+    "babel-plugin-flow-react-proptypes": "^0.21.0",
+    "babel-plugin-react-docgen": "^1.4.2",
     "babel-plugin-transform-object-entries": "^1.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.20.2",
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
-    "enzyme": "^2.6.0",
-    "enzyme-to-json": "^1.4.4",
-    "eslint": "^3.12.0",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-flowtype": "^2.29.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.2.0",
+    "babel-preset-react": "^6.23.0",
+    "enzyme": "^2.7.1",
+    "enzyme-to-json": "^1.5.0",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.8.0",
-    "flow-bin": "^0.36.0",
-    "jest-cli": "^17.0.3",
-    "jest-enzyme": "^2.0.0",
-    "react": "^15.4.1",
-    "react-addons-test-utils": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "eslint-plugin-jest": "^19.0.1",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "flow-bin": "^0.40.0",
+    "flow-copy-source": "^1.1.0",
+    "flow-coverage-report": "^0.3.0",
+    "jest": "^19.0.2",
+    "jest-enzyme": "^2.1.2",
+    "npm-run-all": "^4.0.2",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2"
   },
   "peerDependencies": {
     "react": "^15.4.1",

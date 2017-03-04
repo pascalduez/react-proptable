@@ -1,18 +1,41 @@
 ---
 root: true
 parser: "babel-eslint"
-extends: "airbnb"
+extends:
+  - "airbnb"
+  - "plugin:flowtype/recommended"
+  - "plugin:jest/recommended"
+
 plugins:
   - "flowtype"
+  - "jest"
+
 env:
   jest: true
 
 rules:
+  comma-dangle:
+    - error
+    - arrays: "always-multiline"
+      objects: "always-multiline"
+      imports: "always-multiline"
+      exports: "always-multiline"
+      functions: ignore
+  no-use-before-define:
+    - error
+    - functions: false
+  no-underscore-dangle:
+    - error
+    - allow:
+      - "__docgenInfo"
+
+  react/require-default-props: off
   react/jsx-filename-extension:
     - error
     - extensions:
       - ".js"
       - ".jsx"
+
   import/no-extraneous-dependencies:
     - error
     - devDependencies: true

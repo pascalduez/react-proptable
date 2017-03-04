@@ -1,17 +1,22 @@
 {
   "presets": [
-    "latest",
-    "react"
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "> 1%"],
+        "node": 4,
+      },
+    }],
+    "react",
   ],
   "plugins": [
     "transform-object-rest-spread",
-    "transform-object-entries"
+    "transform-object-entries",
   ],
   "env": {
     "DOCS": {
       "plugins": [
-        "react-docgen"
-      ]
-    }
-  }
+        "react-docgen",
+      ],
+    },
+  },
 }

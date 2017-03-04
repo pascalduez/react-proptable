@@ -1,11 +1,18 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import Table from './Table';
 import getPropTypes from '../utils';
+import type { ReacComponent, Properties } from '../types';
 
+type Props = {
+  title?: string,
+  component: ReacComponent,
+  className?: string,
+};
 
-const PropTable = ({ title, component, className, ...extraProps }) => {
+const PropTable = ({ title, component, className, ...extraProps }: Props) => {
   const heading = title || `${component.displayName || ''} PropTypes`;
-  const properties = Object.values(getPropTypes(component));
+  const properties: Properties = Object.values(getPropTypes(component));
 
   return (
     <section className={className} {...extraProps}>
@@ -14,12 +21,6 @@ const PropTable = ({ title, component, className, ...extraProps }) => {
       <Table properties={properties} />
     </section>
   );
-};
-
-PropTable.propTypes = {
-  title: PropTypes.string,
-  component: PropTypes.func.isRequired,
-  className: PropTypes.string,
 };
 
 PropTable.defaultProps = {

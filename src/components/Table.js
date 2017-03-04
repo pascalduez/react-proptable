@@ -1,7 +1,14 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
+import type { Properties } from '../types';
+
+type Props = {
+  properties: Properties,
+  className?: string,
+};
 
 
-const Table = ({ properties, className }) => (
+const Table = ({ properties, className }: Props) => (
   <table className={className}>
     <thead>
       <tr>
@@ -26,22 +33,22 @@ const Table = ({ properties, className }) => (
   </table>
 );
 
-const propertiesShape = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  type: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  required: PropTypes.bool,
-  defaultValue: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-  }),
-  description: PropTypes.string,
-});
-
-Table.propTypes = {
-  properties: PropTypes.arrayOf(propertiesShape).isRequired,
-  className: PropTypes.string,
-};
+// const propertiesShape = PropTypes.shape({
+//   name: PropTypes.string.isRequired,
+//   type: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//   }).isRequired,
+//   required: PropTypes.bool,
+//   defaultValue: PropTypes.shape({
+//     value: PropTypes.string.isRequired,
+//   }),
+//   description: PropTypes.string,
+// });
+//
+// Table.propTypes = {
+//   properties: PropTypes.arrayOf(propertiesShape).isRequired,
+//   className: PropTypes.string,
+// };
 
 Table.defaultProps = {
   className: '',

@@ -1,7 +1,11 @@
+// @flow
+/* eslint-disable no-restricted-syntax, no-continue */
 import React from 'react';
+// import { parse } from 'react-docgen';
+import type { ReacComponent, ExtractedProps } from '../types';
 
 
-export default function getPropTypes(component) {
+export default function getPropTypes(component: ReacComponent): ExtractedProps {
   if (component.__docgenInfo) {
     return fromDocgen(component);
   }
@@ -10,7 +14,18 @@ export default function getPropTypes(component) {
 }
 
 
-function fromDocgen(component) {
+// function fromSource(component: string) {
+//   let props = {};
+//
+//   if (typeof component === 'string') {
+//     props = parse(component).props;
+//   }
+//
+//   return props;
+// }
+
+
+function fromDocgen(component: ReacComponent): ExtractedProps {
   const props = {};
 
   for (const [key, val] of Object.entries(component.__docgenInfo.props)) {
@@ -22,7 +37,7 @@ function fromDocgen(component) {
 }
 
 
-function fromReact(component) {
+function fromReact(component: ReacComponent): ExtractedProps {
   const reactPropTypes = new Map();
   const componentPropTypes = {};
 
