@@ -28,6 +28,9 @@ rules:
     - error
     - allow:
       - "__docgenInfo"
+  no-unused-vars:
+    - error
+    - ignoreRestSiblings: true
 
   react/require-default-props: off
   react/jsx-filename-extension:
