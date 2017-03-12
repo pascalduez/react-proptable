@@ -1,34 +1,50 @@
 // @flow
 /* eslint-disable no-restricted-syntax, no-continue */
 import React from 'react';
-// import { parse } from 'react-docgen';
-import type { ReacComponent, ExtractedProps } from '../types';
+import get from 'lodash.get';
+import { parse } from 'react-docgen';
+import type { ReactComponent, ExtractedProps } from '../types';
 
 
-export default function getPropTypes(component: ReacComponent): ExtractedProps {
-  if (component.__docgenInfo) {
+export default function getPropTypes(component: ReactComponent): ExtractedProps {
+  if (typeof component.__docgenInfo === 'object') {
     return fromDocgen(component);
+  }
+
+  if (typeof component === 'string') {
+    return fromSource(component);
   }
 
   return fromReact(component);
 }
 
 
-// function fromSource(component: string) {
-//   let props = {};
-//
-//   if (typeof component === 'string') {
-//     props = parse(component).props;
-//   }
-//
-//   return props;
-// }
+function fromSource(component: string): ExtractedProps {
+  let props = {};
+
+  try {
+    props = parse(component).props;
+  } catch (ex) {
+    // eslint-disable-next-line no-console
+    console.error('Woops');
+    return props;
+  }
+
+  Object.keys(props).forEach((name) => {
+    if (!(name in props[name])) {
+      props[name].name = name;
+    }
+  });
+
+  return props;
+}
 
 
-function fromDocgen(component: ReacComponent): ExtractedProps {
+function fromDocgen(component: ReactComponent): ExtractedProps {
   const props = {};
+  const docGenProps = get(component, '__docgenInfo.props');
 
-  for (const [key, val] of Object.entries(component.__docgenInfo.props)) {
+  for (const [key, val] of Object.entries(docGenProps)) {
     props[key] = val;
     props[key].name = key;
   }
@@ -37,7 +53,7 @@ function fromDocgen(component: ReacComponent): ExtractedProps {
 }
 
 
-function fromReact(component: ReacComponent): ExtractedProps {
+function fromReact(component: ReactComponent): ExtractedProps {
   const reactPropTypes = new Map();
   const componentPropTypes = {};
 
@@ -47,11 +63,13 @@ function fromReact(component: ReacComponent): ExtractedProps {
 
   for (const [name, type] of Object.entries(React.PropTypes)) {
     reactPropTypes.set(type, name);
+    // $FlowFixMe
     reactPropTypes.set(type.isRequired, name);
   }
 
   for (const [name, prop] of Object.entries(component.propTypes)) {
     const type = { name: reactPropTypes.get(prop) || 'custom' };
+    // $FlowFixMe
     const required = typeof prop.isRequired === 'function';
     componentPropTypes[name] = { name, type, required };
   }

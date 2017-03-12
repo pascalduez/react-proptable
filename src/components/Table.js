@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import type { Properties } from '../types';
+import get from 'lodash.get';
+import type { Property, Properties } from '../types';
 
 type Props = {
   properties: Properties,
@@ -23,36 +24,62 @@ const Table = ({ properties, className }: Props) => (
       {properties.map(prop => (
         <tr key={prop.name}>
           <td>{prop.name}</td>
-          <td>{prop.type.name}</td>
-          <td>{String(prop.required)}</td>
-          <td>{prop.defaultValue ? prop.defaultValue.value : '-'}</td>
-          <td>{prop.description || '-'}</td>
+          <Type prop={prop} />
+          <Required prop={prop} />
+          <Default prop={prop} />
+          <Description prop={prop} />
         </tr>
       ))}
     </tbody>
   </table>
 );
 
-// const propertiesShape = PropTypes.shape({
-//   name: PropTypes.string.isRequired,
-//   type: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//   }).isRequired,
-//   required: PropTypes.bool,
-//   defaultValue: PropTypes.shape({
-//     value: PropTypes.string.isRequired,
-//   }),
-//   description: PropTypes.string,
-// });
-//
-// Table.propTypes = {
-//   properties: PropTypes.arrayOf(propertiesShape).isRequired,
-//   className: PropTypes.string,
-// };
+/* eslint-disable brace-style, no-unused-expressions */
+const Type = ({ prop }: { prop: Property }) => (
+  <td>
+    {do {
+      if ('elements' in prop.flowType && get(prop, 'flowType.name') === 'Array') {
+        `${get(prop, 'flowType.name')}<${
+          prop.flowType.elements.reduce((curr, acc) =>
+            curr + (acc.raw || acc.name)
+          , '')
+        }>`;
+      }
+      else if ('raw' in prop.flowType) {
+        get(prop, 'flowType.raw');
+      }
+      else if ('name' in prop.flowType) {
+        get(prop, 'flowType.name');
+      }
+      else if ('name' in prop.type) {
+        get(prop, 'type.name');
+      }
+      else {
+        '-';
+      }
+    }}
+  </td>
+);
+/* eslint-enable brace-style, no-unused-expressions */
 
-Table.defaultProps = {
-  className: '',
-};
+
+const Required = ({ prop }: { prop: Property }) => (
+  <td>
+    {prop.required === true ? 'yes' : 'no'}
+  </td>
+);
+
+const Default = ({ prop }: { prop: Property }) => (
+  <td>
+    {prop.defaultValue ? get(prop, 'defaultValue.value') : '-'}
+  </td>
+);
+
+const Description = ({ prop }: { prop: Property }) => (
+  <td>
+    {prop.description || '-'}
+  </td>
+);
 
 
 export default Table;

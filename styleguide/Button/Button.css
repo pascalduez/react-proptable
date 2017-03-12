@@ -1,0 +1,22 @@
+
+.root {
+  padding: 1rem 2rem;
+  border: 1px solid;
+  background-color: transparent;
+}
+
+.root:hover {
+  cursor: pointer;
+}
+
+.primary {
+  color: var(--color-primary, green);
+}
+
+.secondary {
+  color: var(--color-secondary, blue);
+}
+
+.danger {
+  color: var(--color-danger, red);
+}

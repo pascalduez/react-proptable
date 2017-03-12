@@ -2,11 +2,16 @@
 // import React from 'react';
 
 
-export type ReacComponent = {
-  propTypes: Object,
-  defaultProps: Object,
+export type ReactComponent = {
+  name: string,
   displayName: string,
-  __docgenInfo: {
+  defaultProps?: Object,
+  propTypes?: {
+    [key: string]: Function,
+  },
+
+  __docgenInfo?: {
+    description: string,
     props: Object,
   },
 };
@@ -21,10 +26,19 @@ export type Property = {
   },
   required?: boolean,
   description?: string,
+
+  flowType?: {
+    name: string,
+    type?: string,
+    row?: string,
+    elements?: Array<Object>,
+    signature?: Object,
+  },
 };
 
 export type ExtractedProps = {
   [key: string]: Property,
 };
 
+// $FlowFixMe
 export type Properties = Array<Property>;

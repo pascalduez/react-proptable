@@ -2,11 +2,11 @@
 import React from 'react';
 import Table from './Table';
 import getPropTypes from '../utils';
-import type { ReacComponent, Properties } from '../types';
+import type { ReactComponent, Properties } from '../types';
 
 type Props = {
   title?: string,
-  component: ReacComponent,
+  component: ReactComponent,
   className?: string,
 };
 
@@ -21,10 +21,6 @@ const PropTable = ({ title, component, className, ...extraProps }: Props) => {
       <Table properties={properties} />
     </section>
   );
-};
-
-PropTable.defaultProps = {
-  className: '',
 };
 
 

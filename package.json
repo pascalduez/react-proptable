@@ -25,6 +25,7 @@
     "typecheck": "flow check src/",
     "typecheck:coverage": "flow-coverage-report -t text -t html -i 'src/**/*.js' -x 'src/**/*.spec.js'",
     "validate": "run-s lint typecheck",
+    "styleguide": "start-storybook --dont-track -p 9001 -c .storybook",
     "test": "jest",
     "test:cover": "npm test -- --coverage",
     "clean": "rm -rf dist/",
@@ -49,10 +50,12 @@
     ]
   },
   "dependencies": {
+    "lodash.get": "^4.4.2",
     "pretty-format": "^19.0.0",
     "react-docgen": "^2.13.0"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.35.3",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-flow-react-proptypes": "^0.21.0",
@@ -62,6 +65,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.2.1",
     "babel-preset-react": "^6.23.0",
+    "classnames": "^2.2.5",
     "enzyme": "^2.7.1",
     "enzyme-to-json": "^1.5.0",
     "eslint": "^3.17.1",
@@ -76,7 +80,9 @@
     "flow-coverage-report": "^0.3.0",
     "jest": "^19.0.2",
     "jest-enzyme": "^2.1.2",
+    "json-loader": "^0.5.4",
     "npm-run-all": "^4.0.2",
+    "raw-loader": "^0.5.1",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2"
