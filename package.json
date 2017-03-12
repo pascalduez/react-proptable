@@ -20,18 +20,18 @@
     "UNLICENSE"
   ],
   "scripts": {
-    "lint": "eslint ./src",
-    "typecheck": "flow check ./src",
-    "typecheck:coverage": "flow-coverage-report -t test -t html ./src/**/*.js",
-    "validate": "npm-run-all lint typecheck",
+    "lint": "eslint src/",
+    "typecheck": "flow check src/",
+    "typecheck:coverage": "flow-coverage-report -t text -t html -i 'src/**/*.js' -x 'src/**/*.spec.js'",
+    "validate": "run-s lint typecheck",
     "test": "jest",
-    "coverage": "npm test -- --coverage",
-    "clean": "rm -rf ./dist",
-    "build:js": "babel ./src -d ./dist --ignore '*.test.js,*.type.js'",
-    "build:flow": "flow-copy-source -v -i '**/*.spec.js' -i '**/*.story.js' ./src ./dist",
-    "build": "npm-run-all clean build:*",
-    "prepublish": "npm run build",
-    "dev": "BABEL_ENV=DOCS babel-node ./develop"
+    "test:cover": "npm test -- --coverage",
+    "clean": "rm -rf dist/",
+    "build:js": "babel src/ -d dist/ --ignore '*.test.js'",
+    "build:flow": "flow-copy-source -v -i '**/*.{spec,story}.js' src/ dist/",
+    "build": "run-s clean build:*",
+    "prepublish": "run-s validate build",
+    "dev": "BABEL_ENV=DOCS babel-node develop/"
   },
   "jest": {
     "roots": [
