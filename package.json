@@ -19,6 +19,7 @@
     "README.md",
     "UNLICENSE"
   ],
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/",
     "typecheck": "flow check src/",
