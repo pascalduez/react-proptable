@@ -11,6 +11,7 @@
   "plugins": [
     "transform-object-rest-spread",
     "transform-object-entries",
+    "transform-do-expressions",
   ],
   "env": {
     "DOCS": {
