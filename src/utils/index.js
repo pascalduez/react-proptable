@@ -6,6 +6,9 @@ import { parse } from 'react-docgen';
 import type { ReactComponent, ExtractedProps } from '../types';
 
 
+/**
+ *
+ */
 export default function getPropTypes(component: ReactComponent): ExtractedProps {
   if (typeof component.__docgenInfo === 'object') {
     return fromDocgen(component);
@@ -19,14 +22,21 @@ export default function getPropTypes(component: ReactComponent): ExtractedProps 
 }
 
 
-function fromSource(component: string): ExtractedProps {
+/**
+ *
+ */
+export function fromSource(component: string): ExtractedProps {
   let props = {};
 
   try {
     props = parse(component).props;
   } catch (ex) {
     // eslint-disable-next-line no-console
-    console.error('Woops');
+    console.error(
+      'Could not parse component from sources \n',
+      ex.stack
+    );
+
     return props;
   }
 
@@ -40,6 +50,9 @@ function fromSource(component: string): ExtractedProps {
 }
 
 
+/**
+ *
+ */
 export function fromDocgen(component: ReactComponent): ExtractedProps {
   const props = {};
   const docGenProps = get(component, '__docgenInfo.props');
@@ -53,6 +66,9 @@ export function fromDocgen(component: ReactComponent): ExtractedProps {
 }
 
 
+/**
+ *
+ */
 export function fromReact(component: ReactComponent): ExtractedProps {
   const reactPropTypes = new Map();
   const componentPropTypes = {};
@@ -63,13 +79,13 @@ export function fromReact(component: ReactComponent): ExtractedProps {
 
   for (const [name, type] of Object.entries(React.PropTypes)) {
     reactPropTypes.set(type, name);
-    // $FlowFixMe
+    // $FlowFixMe: see flow#2174
     reactPropTypes.set(type.isRequired, name);
   }
 
   for (const [name, prop] of Object.entries(component.propTypes)) {
     const type = { name: reactPropTypes.get(prop) || 'custom' };
-    // $FlowFixMe
+    // $FlowFixMe: see flow#2174
     const required = typeof prop.isRequired !== 'function';
     componentPropTypes[name] = { name, type, required };
   }

@@ -9,30 +9,33 @@ type Props = {
 };
 
 
-const Table = ({ properties, className }: Props) => (
-  <table className={className}>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Required</th>
-        <th>Default</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      {properties.map(prop => (
-        <tr key={prop.name}>
-          <td>{prop.name}</td>
-          <Type prop={prop} />
-          <Required prop={prop} />
-          <Default prop={prop} />
-          <Description prop={prop} />
+export default function Table({ properties, className }: Props) {
+  return (
+    <table className={className}>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Required</th>
+          <th>Default</th>
+          <th>Description</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {properties.map(prop => (
+          <tr key={prop.name}>
+            <td>{prop.name}</td>
+            <Type prop={prop} />
+            <Required prop={prop} />
+            <Default prop={prop} />
+            <Description prop={prop} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 
 /* eslint-disable brace-style, no-unused-expressions */
 const Type = ({ prop }: { prop: Property }) => (
@@ -69,17 +72,16 @@ const Required = ({ prop }: { prop: Property }) => (
   </td>
 );
 
+
 const Default = ({ prop }: { prop: Property }) => (
   <td><pre><code>
     {prop.defaultValue ? get(prop, 'defaultValue.value') : '-'}
   </code></pre></td>
 );
 
+
 const Description = ({ prop }: { prop: Property }) => (
   <td>
     {prop.description || '-'}
   </td>
 );
-
-
-export default Table;
