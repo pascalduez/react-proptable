@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { render } from 'enzyme';
 
-import { fromReact } from '../utils';
-import Table from './Table';
+import PropTable from './PropTable';
 
 // Fixtures.
-// const WithoutProps = () => <span>test</span>;
+const WithoutProps = () => <span>test</span>;
 const WithProps = ({ label, foo }) => <span>{`${label}${foo}`}</span>;
 WithProps.displayName = 'WithProps';
 WithProps.propTypes = {
@@ -17,11 +16,11 @@ WithProps.defaultProps = {
 };
 
 
-describe('<Table>', () => {
+describe('<PropTable>', () => {
   describe('When there is no propType found', () => {
     it('should render the default markup and classes', () => {
       const wrapper = render(
-        <Table properties={[]} />
+        <PropTable component={WithoutProps} />
       );
 
       expect(wrapper).toMatchSnapshot();
@@ -31,11 +30,7 @@ describe('<Table>', () => {
   describe('When propTypes are found', () => {
     it('should render the default markup and classes', () => {
       const wrapper = render(
-        <Table
-          properties={
-            Object.values(fromReact(WithProps))
-          }
-        />
+        <PropTable component={WithProps} />
       );
 
       expect(wrapper).toMatchSnapshot();

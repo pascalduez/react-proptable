@@ -40,7 +40,7 @@ function fromSource(component: string): ExtractedProps {
 }
 
 
-function fromDocgen(component: ReactComponent): ExtractedProps {
+export function fromDocgen(component: ReactComponent): ExtractedProps {
   const props = {};
   const docGenProps = get(component, '__docgenInfo.props');
 
@@ -53,7 +53,7 @@ function fromDocgen(component: ReactComponent): ExtractedProps {
 }
 
 
-function fromReact(component: ReactComponent): ExtractedProps {
+export function fromReact(component: ReactComponent): ExtractedProps {
   const reactPropTypes = new Map();
   const componentPropTypes = {};
 
@@ -70,7 +70,7 @@ function fromReact(component: ReactComponent): ExtractedProps {
   for (const [name, prop] of Object.entries(component.propTypes)) {
     const type = { name: reactPropTypes.get(prop) || 'custom' };
     // $FlowFixMe
-    const required = typeof prop.isRequired === 'function';
+    const required = typeof prop.isRequired !== 'function';
     componentPropTypes[name] = { name, type, required };
   }
 

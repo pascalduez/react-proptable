@@ -36,29 +36,29 @@ const Table = ({ properties, className }: Props) => (
 
 /* eslint-disable brace-style, no-unused-expressions */
 const Type = ({ prop }: { prop: Property }) => (
-  <td>
+  <td><pre><code>
     {do {
-      if ('elements' in prop.flowType && get(prop, 'flowType.name') === 'Array') {
+      if (get(prop, 'flowType.elements') && get(prop, 'flowType.name') === 'Array') {
         `${get(prop, 'flowType.name')}<${
           prop.flowType.elements.reduce((curr, acc) =>
             curr + (acc.raw || acc.name)
           , '')
         }>`;
       }
-      else if ('raw' in prop.flowType) {
+      else if (get(prop, 'flowType.raw')) {
         get(prop, 'flowType.raw');
       }
-      else if ('name' in prop.flowType) {
+      else if (get(prop, 'flowType.name')) {
         get(prop, 'flowType.name');
       }
-      else if ('name' in prop.type) {
+      else if (get(prop, 'type.name')) {
         get(prop, 'type.name');
       }
       else {
         '-';
       }
     }}
-  </td>
+  </code></pre></td>
 );
 /* eslint-enable brace-style, no-unused-expressions */
 
@@ -70,9 +70,9 @@ const Required = ({ prop }: { prop: Property }) => (
 );
 
 const Default = ({ prop }: { prop: Property }) => (
-  <td>
+  <td><pre><code>
     {prop.defaultValue ? get(prop, 'defaultValue.value') : '-'}
-  </td>
+  </code></pre></td>
 );
 
 const Description = ({ prop }: { prop: Property }) => (

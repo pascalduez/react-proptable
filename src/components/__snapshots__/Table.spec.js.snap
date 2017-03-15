@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Table> When propTypes are found should render the default markup and classes 1`] = `
+<table>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Type
+      </th>
+      <th>
+        Required
+      </th>
+      <th>
+        Default
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        label
+      </td>
+      <td>
+        <pre>
+          <code>
+            string
+          </code>
+        </pre>
+      </td>
+      <td>
+        yes
+      </td>
+      <td>
+        <pre>
+          <code>
+            -
+          </code>
+        </pre>
+      </td>
+      <td>
+        -
+      </td>
+    </tr>
+    <tr>
+      <td>
+        foo
+      </td>
+      <td>
+        <pre>
+          <code>
+            number
+          </code>
+        </pre>
+      </td>
+      <td>
+        no
+      </td>
+      <td>
+        <pre>
+          <code />
+        </pre>
+      </td>
+      <td>
+        -
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`<Table> When there is no propType found should render the default markup and classes 1`] = `
+<table>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Type
+      </th>
+      <th>
+        Required
+      </th>
+      <th>
+        Default
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
+`;
