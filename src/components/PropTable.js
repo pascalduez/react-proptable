@@ -1,5 +1,5 @@
 // @flow
-/* eslint-disable no-unused-expressions */
+
 import React from 'react';
 import Table from './Table';
 import getPropTypes from '../utils';
@@ -25,13 +25,9 @@ export default function PropTable({ title, component, className, ...extraProps }
     <section className={className} {...extraProps}>
       {heading &&
         <h1>{heading}</h1>}
-      {do {
-        if (hasProps) {
-          <Table properties={properties} />;
-        } else {
-          <p>Could not find any propType or type to document.</p>;
-        }
-      }}
+      {hasProps
+        ? <Table properties={properties} />
+        : <p>Could not find any propType or type to document.</p>}
     </section>
   );
 }
