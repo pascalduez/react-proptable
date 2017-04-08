@@ -1,6 +1,7 @@
 // @flow
 /* eslint-disable no-restricted-syntax, no-continue */
-import React from 'react';
+
+import PropTypes from 'prop-types';
 import get from 'lodash.get';
 import { parse } from 'react-docgen';
 import type { ReactComponent, ExtractedProps } from '../types';
@@ -77,7 +78,7 @@ export function fromReact(component: ReactComponent): ExtractedProps {
     return componentPropTypes;
   }
 
-  for (const [name, type] of Object.entries(React.PropTypes)) {
+  for (const [name, type] of Object.entries(PropTypes)) {
     reactPropTypes.set(type, name);
     // $FlowFixMe: see flow#2174
     reactPropTypes.set(type.isRequired, name);

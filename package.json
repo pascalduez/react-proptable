@@ -49,6 +49,7 @@
   "dependencies": {
     "lodash.get": "^4.4.2",
     "pretty-format": "^19.0.0",
+    "prop-types": "^15.5.4",
     "react-docgen": "^2.13.0"
   },
   "devDependencies": {
@@ -78,13 +79,15 @@
     "jest-enzyme": "^3.0.0",
     "json-loader": "^0.5.4",
     "npm-run-all": "^4.0.2",
+    "prop-types": "^15.5.4",
     "raw-loader": "^0.5.1",
     "react": "^15.5.3",
     "react-addons-test-utils": "^15.5.0",
     "react-dom": "^15.5.3"
   },
   "peerDependencies": {
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "prop-types": "^15.5.4",
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3"
   }
 }
